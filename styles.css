@@ -1,0 +1,19 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.background {
+    
+    width: 600px;
+    height: 900px;
+    background: blue;
+};
+
+.numbers {
+    display: flex;
+    flex-direction: column;
+}
