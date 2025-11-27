@@ -1,8 +1,11 @@
 let operator = '+';
 let number1 = 1;
 let number2 = 2;
+let firstResult = 0;
 
 let performMath = [];
+
+
 
 
 
@@ -28,7 +31,9 @@ equalBtn.addEventListener('click', (e) => {
     operator = performMath[1];
     number2 = parseInt(performMath[2]);
     
-    displayText.textContent = operate(number1, operator, number2);
+    firstResult = operate(number1, operator, number2);
+    displayText.textContent = firstResult;
+    performMath = [firstResult];
 });
 
 function add(a, b) {
@@ -64,7 +69,6 @@ function operate(number1, operator, number2) {
         return divide(number1, number2);
     };
 };
-
 
 
 
