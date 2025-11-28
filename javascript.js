@@ -6,7 +6,6 @@ let result = 0;
 let round = 0;
 
 let performMath = [];
-let displayTextArr = [];
 
 let preRegisteredNumber = '';
 let numberBtns = document.querySelectorAll(".number");
@@ -18,8 +17,23 @@ let btns = document.querySelectorAll("button");
 let equalBtn = document.querySelector("#equal");
 
 
+
+function checkArrLength() {
+    if (performMath.length > 3) {
+
+        //console.log("more than 3");
+
+        calculate();
+        performMath.splice(0, 3, result);
+        round++;
+    };
+};
+
+
+
 numberBtns.forEach((numberBtn) => {
     numberBtn.addEventListener("click", (e) => {
+        checkArrLength();
         preRegisteredNumber = preRegisteredNumber + numberBtn.textContent;
         
         
@@ -31,28 +45,34 @@ numberBtns.forEach((numberBtn) => {
 
 operatorBtns.forEach((operatorBtn) => {
     operatorBtn.addEventListener("click", (e) => {
-        if (round === 0) {
+        checkArrLength();
+        if (round === 0 ) {
             performMath.push(preRegisteredNumber);
-            performMath.push(operatorBtn.textContent);
             preRegisteredNumber = '';
-
-            displayText.textContent = performMath.join('');
-
-            round++;
-
+            performMath.push(operatorBtn.textContent);
+           
+            
             console.log(performMath);
+            
+
+            //displayText.textContent = performMath.join('');
         } else if (round > 0) {
-            calculate();
-            performMath.push(operatorBtn.textContent);
+            //performMath.push(result);
+            //performMath.push(operatorBtn.textContent);
+            performMath.push(preRegisteredNumber);
             preRegisteredNumber = '';
-
-            displayText.textContent = performMath.join('');
-
+            
             console.log(performMath);
+            
+
+            //displayText.textContent = performMath.join('');
         }
+            
+
+            
+        } )
         
     });
-});
 
 
 
@@ -62,20 +82,20 @@ equalBtn.addEventListener('click', (e) => {
 });
 
 
+
+
+
+
+
+
+
 function calculate() {
-    performMath.push(preRegisteredNumber);
     
     number1 = parseInt(performMath[0]);
     operator = performMath[1];
-    number2 = parseInt(performMath[2]);
+    number2 = parseInt(performMath[2]);    
 
-    console.log(performMath);    
-    
     result = operate(number1, operator, number2);
-    displayText.textContent = result;
-    performMath = [result];
-
-    round++;
 };
 
 
