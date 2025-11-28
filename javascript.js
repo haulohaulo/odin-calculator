@@ -6,6 +6,7 @@ let result = 0;
 let round = 0;
 
 let performMath = [];
+let displayTextArr = [];
 
 let preRegisteredNumber = '';
 let numberBtns = document.querySelectorAll(".number");
@@ -23,6 +24,7 @@ numberBtns.forEach((numberBtn) => {
         
         
         
+        
     });
 });
 
@@ -36,8 +38,11 @@ operatorBtns.forEach((operatorBtn) => {
 
             displayText.textContent = performMath.join('');
 
+            round++;
+
             console.log(performMath);
         } else if (round > 0) {
+            calculate();
             performMath.push(operatorBtn.textContent);
             preRegisteredNumber = '';
 
@@ -53,6 +58,11 @@ operatorBtns.forEach((operatorBtn) => {
 
 
 equalBtn.addEventListener('click', (e) => {
+    calculate();
+});
+
+
+function calculate() {
     performMath.push(preRegisteredNumber);
     
     number1 = parseInt(performMath[0]);
@@ -66,7 +76,7 @@ equalBtn.addEventListener('click', (e) => {
     performMath = [result];
 
     round++;
-});
+};
 
 
 
