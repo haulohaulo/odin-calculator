@@ -3,7 +3,7 @@ let number1 = 1;
 let number2 = 2;
 let result = 0;
 
-let round = 0;
+
 
 let performMath = [];
 
@@ -20,12 +20,9 @@ let equalBtn = document.querySelector("#equal");
 
 function checkArrLength() {
     if (performMath.length > 3) {
-
-        //console.log("more than 3");
-
         calculate();
         performMath.splice(0, 3, result);
-        round++;
+        
     };
 };
 
@@ -33,12 +30,7 @@ function checkArrLength() {
 
 numberBtns.forEach((numberBtn) => {
     numberBtn.addEventListener("click", (e) => {
-        checkArrLength();
         preRegisteredNumber = preRegisteredNumber + numberBtn.textContent;
-        
-        
-        
-        
     });
 });
 
@@ -46,29 +38,17 @@ numberBtns.forEach((numberBtn) => {
 operatorBtns.forEach((operatorBtn) => {
     operatorBtn.addEventListener("click", (e) => {
         checkArrLength();
-        if (round === 0 ) {
-            performMath.push(preRegisteredNumber);
-            preRegisteredNumber = '';
-            performMath.push(operatorBtn.textContent);
-           
-            
-            console.log(performMath);
-            
+        
+        performMath.push(preRegisteredNumber);
+        preRegisteredNumber = '';
+        performMath.push(operatorBtn.textContent);
+        
+        
+        console.log(performMath);
+        
 
-            //displayText.textContent = performMath.join('');
-        } else if (round > 0) {
-            //performMath.push(result);
-            //performMath.push(operatorBtn.textContent);
-            performMath.push(preRegisteredNumber);
-            preRegisteredNumber = '';
-            
-            console.log(performMath);
-            
-
-            //displayText.textContent = performMath.join('');
-        }
-            
-
+        //displayText.textContent = performMath.join('');
+       
             
         } )
         
@@ -78,7 +58,12 @@ operatorBtns.forEach((operatorBtn) => {
 
 
 equalBtn.addEventListener('click', (e) => {
+    checkArrLength();
+    performMath.push(preRegisteredNumber);
+    preRegisteredNumber = '';
     calculate();
+    console.log(result);
+    console.log(performMath);
 });
 
 
