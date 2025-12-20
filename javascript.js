@@ -6,6 +6,7 @@ let result = 0;
 
 
 let performMath = [];
+let displayMath = [];
 
 let preRegisteredNumber = '';
 let numberBtns = document.querySelectorAll(".number");
@@ -13,19 +14,20 @@ let numberBtns = document.querySelectorAll(".number");
 let operatorBtns = document.querySelectorAll(".operator");
 
 let displayText = document.querySelector(".text");
-let btns = document.querySelectorAll("button");
+//let btnsToDisplay = document.querySelectorAll(".forDisplay");
 let equalBtn = document.querySelector("#equal");
 
 
+let round = 0;
 
-function checkArrLength() {
+
+function checkPerformMathLength() {
     if (performMath.length > 3) {
         calculate();
         performMath.splice(0, 3, result);
-        
+        displayText.textContent = performMath.join('');
     };
 };
-
 
 
 numberBtns.forEach((numberBtn) => {
@@ -37,18 +39,14 @@ numberBtns.forEach((numberBtn) => {
 
 operatorBtns.forEach((operatorBtn) => {
     operatorBtn.addEventListener("click", (e) => {
-        checkArrLength();
-        
+
         performMath.push(preRegisteredNumber);
         preRegisteredNumber = '';
         performMath.push(operatorBtn.textContent);
-        
-        
+        checkPerformMathLength();
+
         console.log(performMath);
         
-
-        //displayText.textContent = performMath.join('');
-       
             
         } )
         
@@ -58,10 +56,11 @@ operatorBtns.forEach((operatorBtn) => {
 
 
 equalBtn.addEventListener('click', (e) => {
-    checkArrLength();
+    checkPerformMathLength();
     performMath.push(preRegisteredNumber);
     preRegisteredNumber = '';
     calculate();
+    displayText.textContent = result;
     console.log(result);
     console.log(performMath);
 });
@@ -81,6 +80,7 @@ function calculate() {
     number2 = parseInt(performMath[2]);    
 
     result = operate(number1, operator, number2);
+    //displayText.textContent = result;
 };
 
 
