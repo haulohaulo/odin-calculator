@@ -31,6 +31,11 @@ function displayResultOfFirstTwoNumbers() {
     displayText.textContent = displayMath.join('');
 }
 
+function clearPreviousCalculations() {
+    performMath = [];
+    displayMath = [];
+}
+
 numberBtns.forEach((numberBtn) => {
     numberBtn.addEventListener("click", (e) => {
         preRegisteredNumber = preRegisteredNumber + numberBtn.textContent;
@@ -71,14 +76,18 @@ equalBtn.addEventListener('click', (e) => {
     preRegisteredNumber = '';
     calculate();
     displayText.textContent = result;
-    
+    clearPreviousCalculations();
 });
 
+
+
 clearBtn.addEventListener("click", (e) => {
-    performMath = [];
-    displayMath = [];
-    displayText.textContent = displayMath.join('');
-})
+    clearPreviousCalculations();
+     displayText.textContent = displayMath.join('');
+});
+
+
+
 
 function calculate() {
     
