@@ -14,21 +14,26 @@ let numberBtns = document.querySelectorAll(".number");
 let operatorBtns = document.querySelectorAll(".operator");
 
 let displayText = document.querySelector(".text");
-//let btnsToDisplay = document.querySelectorAll(".forDisplay");
+let btnsToDisplay = document.querySelectorAll(".forDisplay");
 let equalBtn = document.querySelector("#equal");
 
 
-let round = 0;
 
 
-function checkPerformMathLength() {
+function checkHowManyNumbersInCalculation() {
     if (performMath.length > 3) {
         calculate();
         performMath.splice(0, 3, result);
-        displayText.textContent = performMath.join('');
+        displayCalculation();
     };
 };
 
+
+function displayCalculation() {
+    const lastOperator = displayMath.slice(-1);
+    displayMath = [result, lastOperator];
+    displayText.textContent = displayMath.join('');
+}
 
 numberBtns.forEach((numberBtn) => {
     numberBtn.addEventListener("click", (e) => {
@@ -37,17 +42,23 @@ numberBtns.forEach((numberBtn) => {
 });
 
 
+btnsToDisplay.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+        displayMath.push(btn.textContent);
+        displayText.textContent = displayMath.join('');
+        console.log(displayMath);
+    })
+})
+
 operatorBtns.forEach((operatorBtn) => {
     operatorBtn.addEventListener("click", (e) => {
 
         performMath.push(preRegisteredNumber);
         preRegisteredNumber = '';
         performMath.push(operatorBtn.textContent);
-        checkPerformMathLength();
-
-        console.log(performMath);
+        checkHowManyNumbersInCalculation();
         
-            
+        
         } )
         
     });
@@ -56,20 +67,13 @@ operatorBtns.forEach((operatorBtn) => {
 
 
 equalBtn.addEventListener('click', (e) => {
-    checkPerformMathLength();
+    checkHowManyNumbersInCalculation();
     performMath.push(preRegisteredNumber);
     preRegisteredNumber = '';
     calculate();
     displayText.textContent = result;
-    console.log(result);
-    console.log(performMath);
+    
 });
-
-
-
-
-
-
 
 
 
@@ -80,7 +84,6 @@ function calculate() {
     number2 = parseInt(performMath[2]);    
 
     result = operate(number1, operator, number2);
-    //displayText.textContent = result;
 };
 
 
