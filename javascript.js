@@ -20,12 +20,10 @@ let equalBtn = document.querySelector("#equal");
 
 
 
-function checkHowManyNumbersInCalculation() {
-    if (performMath.length > 3) {
-        calculate();
-        performMath.splice(0, 3, result);
-        displayCalculation();
-    };
+function calculateFirstTwoNumbers() {
+    calculate();
+    performMath.splice(0, 3, result);
+    displayCalculation();
 };
 
 
@@ -56,9 +54,10 @@ operatorBtns.forEach((operatorBtn) => {
         performMath.push(preRegisteredNumber);
         preRegisteredNumber = '';
         performMath.push(operatorBtn.textContent);
-        checkHowManyNumbersInCalculation();
-        
-        
+
+        if (performMath.length > 3) {
+            calculateFirstTwoNumbers();
+        };
         } )
         
     });
@@ -67,7 +66,9 @@ operatorBtns.forEach((operatorBtn) => {
 
 
 equalBtn.addEventListener('click', (e) => {
-    checkHowManyNumbersInCalculation();
+    if (performMath.length > 3) {
+            calculateFirstTwoNumbers();
+    };
     performMath.push(preRegisteredNumber);
     preRegisteredNumber = '';
     calculate();
