@@ -77,6 +77,7 @@ equalBtn.addEventListener('click', (e) => {
 clearBtn.addEventListener("click", (e) => {
     performMath = [];
     displayMath = [];
+    displayText.textContent = displayMath.join('');
 })
 
 function calculate() {
