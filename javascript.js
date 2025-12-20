@@ -2,9 +2,6 @@ let operator = '+';
 let number1 = 1;
 let number2 = 2;
 let result = 0;
-
-
-
 let performMath = [];
 let displayMath = [];
 
@@ -16,6 +13,7 @@ let operatorBtns = document.querySelectorAll(".operator");
 let displayText = document.querySelector(".text");
 let btnsToDisplay = document.querySelectorAll(".forDisplay");
 let equalBtn = document.querySelector("#equal");
+let clearBtn = document.querySelector("#clr");
 
 
 
@@ -23,11 +21,11 @@ let equalBtn = document.querySelector("#equal");
 function calculateFirstTwoNumbers() {
     calculate();
     performMath.splice(0, 3, result);
-    displayCalculation();
+    displayResultOfFirstTwoNumbers();
 };
 
 
-function displayCalculation() {
+function displayResultOfFirstTwoNumbers() {
     const lastOperator = displayMath.slice(-1);
     displayMath = [result, lastOperator];
     displayText.textContent = displayMath.join('');
@@ -44,7 +42,6 @@ btnsToDisplay.forEach((btn) => {
     btn.addEventListener("click", (e) => {
         displayMath.push(btn.textContent);
         displayText.textContent = displayMath.join('');
-        console.log(displayMath);
     })
 })
 
@@ -66,6 +63,7 @@ operatorBtns.forEach((operatorBtn) => {
 
 
 equalBtn.addEventListener('click', (e) => {
+
     if (performMath.length > 3) {
             calculateFirstTwoNumbers();
     };
@@ -76,7 +74,10 @@ equalBtn.addEventListener('click', (e) => {
     
 });
 
-
+clearBtn.addEventListener("click", (e) => {
+    performMath = [];
+    displayMath = [];
+})
 
 function calculate() {
     
@@ -85,6 +86,7 @@ function calculate() {
     number2 = parseInt(performMath[2]);    
 
     result = operate(number1, operator, number2);
+    result = Math.round(result);
 };
 
 
