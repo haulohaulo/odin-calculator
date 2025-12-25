@@ -11,7 +11,6 @@ let numberBtns = document.querySelectorAll(".number");
 let operatorBtns = document.querySelectorAll(".operator");
 
 let displayText = document.querySelector(".text");
-let btnsToDisplay = document.querySelectorAll(".forDisplay");
 let equalBtn = document.querySelector("#equal");
 let clearBtn = document.querySelector("#clr");
 
@@ -67,27 +66,23 @@ operatorBtns.forEach((operatorBtn) => {
         
     });
 
-/*btnsToDisplay.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-        
-
-        displayMath.push(btn.textContent);
-        displayText.textContent = displayMath.join('');
-    })
-})
-    */
-
 
 equalBtn.addEventListener('click', (e) => {
-
-    if (performMath.length > 3) {
-            calculateFirstTwoNumbers();
-    };
-    performMath.push(preRegisteredNumber);
-    preRegisteredNumber = '';
-    calculate();
-    displayText.textContent = result;
-    clearPreviousCalculations();
+    if (performMath.length >= 2) {
+        if (performMath.length > 3) {
+        calculateFirstTwoNumbers();
+        };
+        if (preRegisteredNumber) {
+        performMath.push(preRegisteredNumber);
+        preRegisteredNumber = '';
+        calculate();
+        displayText.textContent = result;
+        clearPreviousCalculations();
+        };
+    } else {
+        console.log("error");
+    }
+    
 });
 
 
