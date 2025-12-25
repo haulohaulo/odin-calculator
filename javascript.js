@@ -39,6 +39,9 @@ function clearPreviousCalculations() {
 numberBtns.forEach((numberBtn) => {
     numberBtn.addEventListener("click", (e) => {
         preRegisteredNumber = preRegisteredNumber + numberBtn.textContent;
+        
+        displayMath.push(numberBtn.textContent);
+        displayText.textContent = displayMath.join('');
     });
 });
 
@@ -47,10 +50,16 @@ numberBtns.forEach((numberBtn) => {
 
 operatorBtns.forEach((operatorBtn) => {
     operatorBtn.addEventListener("click", (e) => {
+        if (preRegisteredNumber) {
+            displayMath.push(operatorBtn.textContent);
+            displayText.textContent = displayMath.join('');
+
+            performMath.push(preRegisteredNumber);
+            preRegisteredNumber = '';
+            performMath.push(operatorBtn.textContent);
+
+        };
         
-        performMath.push(preRegisteredNumber);
-        preRegisteredNumber = '';
-        performMath.push(operatorBtn.textContent);
         if (performMath.length > 3) {
             calculateFirstTwoNumbers();
         };
@@ -58,7 +67,7 @@ operatorBtns.forEach((operatorBtn) => {
         
     });
 
-btnsToDisplay.forEach((btn) => {
+/*btnsToDisplay.forEach((btn) => {
     btn.addEventListener("click", (e) => {
         
 
@@ -66,6 +75,7 @@ btnsToDisplay.forEach((btn) => {
         displayText.textContent = displayMath.join('');
     })
 })
+    */
 
 
 equalBtn.addEventListener('click', (e) => {
