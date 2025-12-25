@@ -43,20 +43,14 @@ numberBtns.forEach((numberBtn) => {
 });
 
 
-btnsToDisplay.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-        displayMath.push(btn.textContent);
-        displayText.textContent = displayMath.join('');
-    })
-})
+
 
 operatorBtns.forEach((operatorBtn) => {
     operatorBtn.addEventListener("click", (e) => {
-
+        
         performMath.push(preRegisteredNumber);
         preRegisteredNumber = '';
         performMath.push(operatorBtn.textContent);
-
         if (performMath.length > 3) {
             calculateFirstTwoNumbers();
         };
@@ -64,7 +58,14 @@ operatorBtns.forEach((operatorBtn) => {
         
     });
 
+btnsToDisplay.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+        
 
+        displayMath.push(btn.textContent);
+        displayText.textContent = displayMath.join('');
+    })
+})
 
 
 equalBtn.addEventListener('click', (e) => {
@@ -97,6 +98,10 @@ function calculate() {
 
     result = operate(number1, operator, number2);
     result = Math.round(result);
+
+    if (operator === "/" && number2 === 0) {
+        result = "ERROR"
+    }
 };
 
 
