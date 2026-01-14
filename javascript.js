@@ -2,10 +2,11 @@ let operator = '+';
 let number1 = 1;
 let number2 = 2;
 let result = 0;
+
+let registeredNumber = '';   //it allows non-single digits to be registered as ONE SINGLE array item in the performMath array
 let performMath = [];
 let displayMath = [];
 
-let preRegisteredNumber = '';
 let numberBtns = document.querySelectorAll(".number");
 
 let operatorBtns = document.querySelectorAll(".operator");
@@ -14,7 +15,7 @@ let displayText = document.querySelector(".text");
 let equalBtn = document.querySelector("#equal");
 let clearBtn = document.querySelector("#clr");
 
-
+let hasEqualsBeenPressed = false;
 
 
 function calculateFirstTwoNumbers() {
@@ -37,7 +38,7 @@ function clearPreviousCalculations() {
 
 numberBtns.forEach((numberBtn) => {
     numberBtn.addEventListener("click", (e) => {
-        preRegisteredNumber = preRegisteredNumber + numberBtn.textContent;
+        registeredNumber = registeredNumber + numberBtn.textContent;
         
         displayMath.push(numberBtn.textContent);
         displayText.textContent = displayMath.join('');
@@ -49,19 +50,30 @@ numberBtns.forEach((numberBtn) => {
 
 operatorBtns.forEach((operatorBtn) => {
     operatorBtn.addEventListener("click", (e) => {
-        if (preRegisteredNumber) {
+        if (registeredNumber) {
             displayMath.push(operatorBtn.textContent);
             displayText.textContent = displayMath.join('');
 
-            performMath.push(preRegisteredNumber);
-            preRegisteredNumber = '';
+            performMath.push(registeredNumber);
+            registeredNumber = '';
             performMath.push(operatorBtn.textContent);
-
+            hasEqualsBeenPressed = false;
         };
         
         if (performMath.length > 3) {
             calculateFirstTwoNumbers();
+            hasEqualsBeenPressed = false;
         };
+        if (hasEqualsBeenPressed === true) {  //allows continuous calculations using the result after equals has been pressed
+            clearPreviousCalculations();
+            performMath.push(result);
+            performMath.push(operatorBtn.textContent);
+            displayMath.push(result);
+            displayMath.push(operatorBtn.textContent);
+            displayText.textContent = displayMath.join('');
+            hasEqualsBeenPressed = false;
+        }
+        
         } )
         
     });
@@ -72,16 +84,14 @@ equalBtn.addEventListener('click', (e) => {
         if (performMath.length > 3) {
         calculateFirstTwoNumbers();
         };
-        if (preRegisteredNumber) {
-        performMath.push(preRegisteredNumber);
-        preRegisteredNumber = '';
+        if (registeredNumber) {
+        performMath.push(registeredNumber);
+        registeredNumber = '';
         calculate();
         displayText.textContent = result;
-        clearPreviousCalculations();
+        hasEqualsBeenPressed = true;
         };
-    } else {
-        console.log("error");
-    }
+    };
     
 });
 
